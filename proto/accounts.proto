@@ -1,0 +1,17 @@
+syntax = "proto3";
+package accounts;
+
+service AccountService {
+  rpc CreateAccount (CreateAccountRequest) returns (AccountResponse);
+  rpc GetAccount    (GetAccountRequest)    returns (AccountResponse);
+  rpc Deposit       (TransactionRequest)   returns (AccountResponse);
+  rpc Withdraw      (TransactionRequest)   returns (AccountResponse);
+  rpc GetTransactions (GetAccountRequest)  returns (TransactionsResponse);
+}
+
+message CreateAccountRequest { string userId = 1; string type = 2; }
+message GetAccountRequest    { string accountId = 1; }
+message TransactionRequest   { string accountId = 1; double amount = 2; string description = 3; }
+message AccountResponse      { string id = 1; string userId = 2; double balance = 3; string type = 4; }
+message Transaction          { string id = 1; string type = 2; double amount = 3; string description = 4; string date = 5; }
+message TransactionsResponse { repeated Transaction transactions = 1; }
